@@ -18,6 +18,7 @@ public class PLAYERMOVEMENT2 : MonoBehaviour
     bool crouch = false;
     [Range(1, 10)]
     public float jumpvelocity;
+    public float delayJurang;
 
     //Mirror
     public GameObject cahaya;
@@ -27,6 +28,10 @@ public class PLAYERMOVEMENT2 : MonoBehaviour
     public bool buttonHoldDelay;
     public Button MirrorButton;
     private EventTrigger trigger;
+    public GameObject GameOverPanel;
+    public GameObject UIObject;
+
+    
 
     // Start is called before the first frame update
     private void Start()
@@ -113,6 +118,8 @@ public class PLAYERMOVEMENT2 : MonoBehaviour
         } else {
             MirrorButton.interactable = true;
         }
+
+        
     }
 
     private void FixedUpdate()
@@ -186,6 +193,14 @@ public class PLAYERMOVEMENT2 : MonoBehaviour
         {
             anim.SetBool("isWalking", false);
         }
+
+        if (collision.gameObject.tag == "Jurang")
+        {
+            UIObject.SetActive(false);
+            GameOverPanel.SetActive (true);
+        
+            StartCoroutine(masukJurang());
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -195,4 +210,12 @@ public class PLAYERMOVEMENT2 : MonoBehaviour
             anim.SetBool("isWalking", true);
         }
     }
+
+    IEnumerator masukJurang()
+    {
+        yield return new WaitForSeconds(delayJurang);
+        Time.timeScale = 0;
+    }
+
+   
 }

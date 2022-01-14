@@ -8,6 +8,8 @@ TagManager:
   - Teleporter
   - NPC
   - Batas
+  - Jurang
+  - obstacle
   layers:
   - Default
   - TransparentFX

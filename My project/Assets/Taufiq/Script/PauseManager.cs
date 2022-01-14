@@ -9,6 +9,11 @@ public class PauseManager : MonoBehaviour
 {
     public GameObject UI;
     public GameObject panelPause;
+
+    void Start()
+    {
+        
+    }
     
     public void PauseControl()
     {
@@ -37,4 +42,5 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1;
         Application.LoadLevel(0);
     }
+
 }

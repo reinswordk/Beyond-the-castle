@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +12,8 @@ public class EnemyScript : MonoBehaviour
     public float speedEnemy;
     float x;
     private bool m_FacingRight = true;
+    public bool rightPosition;
     Animator anim;
-
     Rigidbody2D myRigidbody;
 
 
@@ -28,42 +29,86 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if(Vector2.Distance(transform.position, playerPos.position) < distance)
+        if (rightPosition == false)
         {
-            if (playerPos.position.x - transform.position.x > 0)
+            if(Vector2.Distance(transform.position, playerPos.position) < distance)
             {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-            } else 
-            {
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-            }
+                if (playerPos.position.x - transform.position.x > 0)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                } else 
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
 
-            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speedEnemy * Time.deltaTime);
-            anim.SetBool ("getHit", true);
-            //anim.SetBool ("walkBack", false);
-        }
-        else
-        {
-           anim.SetBool ("getHit", false);
-           
-            if( Vector2.Distance(transform.position, currentPos) <= 0)
-            {
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                anim.SetBool ("getHit", false);
+                transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speedEnemy * Time.deltaTime);
+                anim.SetBool ("getHit", true);
                 //anim.SetBool ("walkBack", false);
-                
-
             }
             else
             {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                transform.position = Vector2.MoveTowards(transform.position ,currentPos, speedEnemy * Time.deltaTime);
-                anim.SetBool ("getHit", false);
-                //anim.SetBool ("walkBack", true);
-                
-                
+            anim.SetBool ("getHit", false);
+            
+                if( Vector2.Distance(transform.position, currentPos) <= 0)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                    anim.SetBool ("getHit", false);
+                    //anim.SetBool ("walkBack", false);
+                    
+
+                }
+                else
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                    transform.position = Vector2.MoveTowards(transform.position ,currentPos, speedEnemy * Time.deltaTime);
+                    anim.SetBool ("getHit", false);
+                    //anim.SetBool ("walkBack", true);
+                    
+                    
+                }
             }
         }
+        else
+        {
+            
+            if(Vector2.Distance(transform.position, playerPos.position) < distance)
+            {
+                if (playerPos.position.x - transform.position.x > 0)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                } else 
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                }
+
+                transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speedEnemy * Time.deltaTime);
+                anim.SetBool ("getHit", true);
+                //anim.SetBool ("walkBack", false);
+            }
+            else
+            {
+            anim.SetBool ("getHit", false);
+            
+                if( Vector2.Distance(transform.position, currentPos) <= 0)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                    anim.SetBool ("getHit", false);
+                    //anim.SetBool ("walkBack", false);
+                    
+
+                }
+                else
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                    transform.position = Vector2.MoveTowards(transform.position ,currentPos, speedEnemy * Time.deltaTime);
+                    anim.SetBool ("getHit", false);
+                    //anim.SetBool ("walkBack", true);
+                    
+                    
+                }
+            }
+        }
+
+        
     }
 }
